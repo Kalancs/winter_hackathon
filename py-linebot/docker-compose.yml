@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  flask:
+    container_name: linebot-python
+    build: .
+    ports:
+      - 5000:5000
+    links:
+      - mysql
+    privileged: true
+    volumes:
+      - .:/project
+    tty: true
+    environment:
+        TZ: Asia/Tokyo
+        FLASK_ENV: 'development'
+        FLASK_APP: 'start.py'
+    command: flask run -h 0.0.0.0
+
+  mysql:
+    container_name: linebot-db
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: linebot
+      MYSQL_USER: hoge
+      MYSQL_PASSWORD: huga
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --skip-character-set-client-handshake
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+      - ./docker/db/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3309:3309
