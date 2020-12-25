@@ -44,6 +44,14 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=event.message.text))
 
+    # 画像送信
+    main_image_path = f"static/images/main.jpg"
+    image_message = ImageSendMessage(
+        original_content_url = f"https://date-the-image.herokuapp.com/{main_image_path}",
+    )
+
+    line_bot_api.reply_message(event.reply_token,image_messatge)
+
 if __name__ == "__main__":
 
   port = int(os.getenv("PORT"))
