@@ -45,15 +45,15 @@ def handle_message(event):
         TextSendMessage(text=event.message.text))
 
     # 画像送信
-    main_image_path = f"static/images/main.jpg"
+    main_image_path = f"main.jpg"
     image_message = ImageSendMessage(
         original_content_url = f"https://date-the-image.herokuapp.com/{main_image_path}",
     )
 
-    line_bot_api.reply_message(event.reply_token,image_messatge)
+    line_bot_api.reply_message(event.reply_token,image_message)
 
 if __name__ == "__main__":
 
-  port = int(os.getenv("PORT"))
-  app.run(host="0.0.0.0", port = port)
+    port = int(os.getenv("PORT"))
+    app.run(host="0.0.0.0", port = port)
 
